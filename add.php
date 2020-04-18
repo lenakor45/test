@@ -2,8 +2,8 @@
 include ("lib.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $newUser[0] = $_POST['name'];
-    $newUser[1]=$_POST['email'];
+    $newUser[0] = $_POST['email'];
+    $newUser[1]=$_POST['name'];
 
     $result = addUser($newUser);
 

@@ -1,9 +1,38 @@
+@font-face {
+    font-family: Exo2; /* Имя шрифта */
+    src: url(../font_family/Exo2.0-Light.otf); /* Путь к файлу со шрифтом */
+}
+body{
+    font-family: Exo2;
+}
+.page{
+    max-width: 1920px;
+    margin: 0 auto;
+}
+.wrap{
+    margin: 0 auto;
+    max-width: 1170px;
+}
 table{
     border-collapse: collapse;
+    margin: auto;
 }
 td,tr{
     border: 1px solid black;
 }
 .header{
-    
+    font-size: 35px;
+    text-align: center;
+    margin: 55px 0 25px 0;
+}
+.table, .newUser{
+    text-align: center;
+    align-content: center;
+    font-size: 18px;
+}
+button{
+    margin: 15px auto;
+    border-radius: 5px;
+    width: 110px;
+    height: 25px;
 }

@@ -5,7 +5,7 @@ function getUsers(){
         echo 'Не могу соединиться с БД. Код ошибки: ' . mysqli_connect_errno() . ', ошибка: ' . mysqli_connect_error();
         exit;
     }
-    $select = "SELECT * FROM user.users;";
+    $select = "SELECT * FROM user.user;";
     $result = mysqli_query($GLOBALS["link"], $select);
     return $result;
 }
@@ -31,7 +31,7 @@ function deleteUsers($ids)
 {
     for($i=0;$i<count($ids);$i++)
     {
-        $query ="UPDATE user.users SET IsDel='1' WHERE id='".$ids[$i]."'";
+        $query ="UPDATE user.user SET IsDel='1' WHERE id='".$ids[$i]."'";
         mysqli_query($GLOBALS['link'], $query);
     }
     return true;
@@ -39,7 +39,7 @@ function deleteUsers($ids)
 
 function addUser($newUser)
 {
-    $query ="INSERT INTO user.users (email, login, IsDel) 
+    $query ="INSERT INTO user.user (email, login, IsDel) 
              VALUES('$newUser[0]','$newUser[1]','0')";
     mysqli_query($GLOBALS['link'], $query);
     return true;
