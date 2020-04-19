@@ -13,6 +13,9 @@ body{
     margin: 0 auto;
     max-width: 1170px;
 }
+h2{
+    text-align: center;
+}
 table{
     border-collapse: collapse;
     margin: auto;

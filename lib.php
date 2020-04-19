@@ -39,8 +39,20 @@ function deleteUsers($ids)
 
 function addUser($newUser)
 {
-    $query ="INSERT INTO user.user (email, login, IsDel) 
+//    $user = getUsers();
+//    $email=[];$login=[];
+//    for($i=0;$i<mysqli_num_rows($user);$i++)
+//    {
+//        $email[$i] = $user[1];
+//        $login[$i] = $user[2];
+//    }&& !in_array($newUser[0],$email) && !in_array($newUser[1],$login)
+    if(filter_var($newUser[0], FILTER_VALIDATE_EMAIL) )
+    {
+        $query ="INSERT INTO user.user (email, login, IsDel) 
              VALUES('$newUser[0]','$newUser[1]','0')";
-    mysqli_query($GLOBALS['link'], $query);
-    return true;
+        mysqli_query($GLOBALS['link'], $query);
+        return true;
+    }
+    else return false;
+
 }

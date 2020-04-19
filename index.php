@@ -11,8 +11,30 @@ $result = getUsers();
     <link href="style/style.css" rel="stylesheet">
 </head>
 <body>
+<!-- подключаем для работы Google Charts -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <div class="page">
     <div class="wrap">
+        <?php
+        if (!empty($_GET['del_success']))
+        {
+            echo('<h2>Удаление прошло!</h2>');
+        }
+        if(!empty($_GET['del_error']))
+        {
+            echo('<h2>Ошибка удаления</h2>');
+        }
+        if(!empty($_GET['add_success']))
+        {
+            echo('<h2>Пользователь добавлен</h2>');
+        }
+        if(!empty($_GET['add_error']))
+        {
+            echo('<h2>Ошибка добавления пользователя</h2>');
+        }
+        ?>
     <div class="header">
         Пользователи
     </div>
