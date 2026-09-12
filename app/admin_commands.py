@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from sqlalchemy import select
 from .db import SessionLocal
-from .handlers import Form, guard, parse_money
+from .handlers import Form, guard
 from .models import Parent, Student, RecurringSchedule
 from .services import generate_future_lessons
 
@@ -27,7 +27,9 @@ async def ss(m:Message,state:FSMContext): await state.update_data(subject=m.text
 @router.message(Form.student_duration)
 async def sd(m:Message,state:FSMContext):
     try:
-        d=await state.get_data(); dur=int(m.text); async with SessionLocal() as db: db.add(Student(parent_id=d['parent_id'],name=d['student_name'],subject=d['subject'],duration_minutes=dur)); await db.commit()
+        d=await state.get_data(); dur=int(m.text)
+        async with SessionLocal() as db:
+            db.add(Student(parent_id=d['parent_id'],name=d['student_name'],subject=d['subject'],duration_minutes=dur)); await db.commit()
         await state.clear(); await m.answer('Ученик добавлен.')
     except Exception as e: await m.answer(f'Ошибка: {e}')
 
@@ -50,8 +52,7 @@ async def sch_time(m:Message,state:FSMContext):
     try: t=datetime.strptime(m.text.strip(),'%H:%M').time(); await state.update_data(start_time=t.strftime('%H:%M')); await state.set_state(Form.schedule_duration); await m.answer('Длительность минут:')
     except: await m.answer('Формат ЧЧ:ММ')
 @router.message(Form.schedule_duration)
-async def sch_dur(m:Message,state:FSMContext):
-    await state.update_data(duration=int(m.text)); await state.set_state(Form.schedule_start); await m.answer('Дата начала ДД.ММ.ГГГГ:')
+async def sch_dur(m:Message,state:FSMContext): await state.update_data(duration=int(m.text)); await state.set_state(Form.schedule_start); await m.answer('Дата начала ДД.ММ.ГГГГ:')
 @router.message(Form.schedule_start)
 async def sch_start(m:Message,state:FSMContext):
     try: d=datetime.strptime(m.text,'%d.%m.%Y').date(); await state.update_data(start_date=d.isoformat()); await state.set_state(Form.schedule_end); await m.answer('Дата окончания ДД.ММ.ГГГГ или —:')
